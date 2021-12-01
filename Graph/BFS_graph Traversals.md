@@ -13,118 +13,65 @@ Loop visit from root node
 4. Inserted Vertex repeat hoba na 
 
 ````cpp
-// Program to print BFS traversal from a given
-// source vertex. BFS(int s) traverses vertices
-// reachable from s.
-#include<iostream>
-#include <list>
- 
+// ---------------------------------------------------------------------//
+//                           Assalamualaikum                            //
+//             American International University Bangladesh             //
+//                            Binarybeast004                            //
+// ---------------------------------------------------------------------//
+#include <bits/stdc++.h>
 using namespace std;
- 
-// This class represents a directed graph using
-// adjacency list representation
-class Graph
-{
-    int V;    // No. of vertices
- 
-    // Pointer to an array containing adjacency
-    // lists
-    list<int> *adj;  
-public:
-    Graph(int V);  // Constructor
- 
-    // function to add an edge to graph
-    void addEdge(int v, int w);
- 
-    // prints BFS traversal from a given source s
-    void BFS(int s); 
-};
- 
-Graph::Graph(int V)
-{
-    this->V = V;
-    adj = new list<int>[V];
-}
- 
-void Graph::addEdge(int v, int w)
-{
-    adj[v].push_back(w); // Add w to v’s list.
-}
- 
-void Graph::BFS(int s)
-{
-    // Mark all the vertices as not visited
-    bool *visited = new bool[V];
-    for(int i = 0; i < V; i++)
-        visited[i] = false;
- 
-    // Create a queue for BFS
-    list<int> queue;
- 
-    // Mark the current node as visited and enqueue it
-    visited[s] = true;
-    queue.push_back(s);
- 
-    // 'i' will be used to get all adjacent
-    // vertices of a vertex
-    list<int>::iterator i;
- 
-    while(!queue.empty())
-    {
-        // Dequeue a vertex from queue and print it
-        s = queue.front();
-        cout << s << " ";
-        queue.pop_front();
- 
-        // Get all adjacent vertices of the dequeued
-        // vertex s. If a adjacent has not been visited,
-        // then mark it visited and enqueue it
-        for (i = adj[s].begin(); i != adj[s].end(); ++i)
-        {
-            if (!visited[*i])
-            {
-                visited[*i] = true;
-                queue.push_back(*i);
+#define BOOST       ios_base::sync_with_stdio(false);cin.tie(NULL);cout.tie(NULL)
+#define endl        "\n"
+#define LL          long long
+#define FOR(i,n)    for(int i=0;i<n;i++)
+#define rep(i,k,n)  for(int i=k; i<n; i++)
+#define repp(i,k,n) for(int i=k; i<=n; i++)
+#define N           7   //number of node
+vector<int> adj[N];     //adj array create in a vector 
+int vis[N];             //Visited array 
+
+void BFS(int node) {    //bfs method
+    queue<int> q;       //create a queue - q 
+    q.push(node);       //first Insert the node into queue
+    vis[node] = 1;      //make the node visited
+
+    while(!q.empty()) {        //Until Queue q is empty
+        int n1 = q.front();    //keep the front(queue) node in n1 variable  
+        q.pop();               //delete the node from queue q
+        cout << n1 << " ";     //print the node
+        for(int i : adj[n1]) { //Foreach loop //
+            if(!vis[i]) {      //if not visited
+                q.push(i);     //value insert into queue 
+                vis[i] = 1;    //make i index visited
             }
         }
     }
 }
- 
-// Driver program to test methods of graph class
-int main()
-{
-    // Create a graph given in the above diagram
-    Graph g(4);
-    g.addEdge(0, 1);
-    g.addEdge(0, 2);
-    g.addEdge(1, 2);
-    g.addEdge(2, 0);
-    g.addEdge(2, 3);
-    g.addEdge(3, 3);
- 
-    cout << "Following is Breadth First Traversal "
-         << "(starting from vertex 2) \n";
-    g.BFS(2);
- 
+
+int main() {
+    BOOST;
+
+    int m;
+    cin >> m ;
+    for(int i=0; i<m; i++) {
+        int u, v;
+        cin >> u >> v;
+        adj[u].push_back(v);     //for adjacent list issue intert the u into v . and v into u.
+        adj[v].push_back(u);
+    }
+
+    for(int i=0; i<N; i++) {     //if there is no connection with to components , thats why we check visited or not visited
+        if(!vis[i]) {            //if Not visited
+            BFS(i);              //use recursive call
+        }
+    }
+
     return 0;
 }
 ````
 **MODULE_1**
 **INPUT**
 1. Number of nodes/vertices
-````cpp
-//Variable decleartion
-int n,g[10][10],i,j;
-char labels[10];
-
-//read num of nodes
-cin>>n;
-
-//read Node level
-rep(i,0,n){
-g[i]=1;
-}
-````
 2. Label for each node
 3. Edges present or not (1/0)
 
@@ -135,8 +82,4 @@ Display Adjacency matrix for given graph
 1. Set status of each node to 1
 2. Initialige Queue data structure and operations
 3. BFS algorithn
-
-https://www.youtube.com/watch?v=w9r0Q5-kRww
-https://www.geeksforgeeks.org/breadth-first-search-or-bfs-for-a-graph/
-
 
